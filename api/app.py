@@ -1,7 +1,9 @@
 from flask import Flask , render_template
 import sys
 sys.path.append("./src")
-import prueba
+sys.path.append("./bd")
+from controllers import caso1
+import conexion
 app = Flask(__name__)
 @app.route("/")
 def index():
