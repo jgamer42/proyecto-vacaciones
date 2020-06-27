@@ -2,7 +2,7 @@ import psycopg2
 import configparser
 config = configparser.ConfigParser()
 config.sections()
-config.read("bd/config.ini")
+config.read("config.ini")
 
 class conexion():
     def __init__(self):
