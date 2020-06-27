@@ -1,6 +1,7 @@
 from flask import Flask , render_template
 import sys
 sys.path.append("./src")
+import prueba
 app = Flask(__name__)
 @app.route("/")
 def index():
