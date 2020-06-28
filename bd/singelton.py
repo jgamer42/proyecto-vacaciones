@@ -5,6 +5,6 @@ class Singelton():
         self.cls = Conexion
 
     def singelton(self):
-        if(not self.cls.__instance):
-            self.cls.__instance = self.cls
+        if(not self.cls.instance):
+            self.cls.instance = self.cls
         return(self.cls)
