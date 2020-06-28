@@ -6,5 +6,5 @@ class Singelton():
 
     def singelton(self):
         if(not self.cls.__instance):
-            self.cls.__instace = self.cls
+            self.cls.__instance = self.cls
         return(self.cls)
