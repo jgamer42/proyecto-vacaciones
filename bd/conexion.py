@@ -7,13 +7,11 @@ config.read(os.getcwd()+"/bd/config.ini")
 class Conexion():
     instance = None
     def __init__(self):
-        self.config = configparser.ConfigParser()
-        self.config.sections()
-        self.config.read(os.getcwd()+"/bd/config.ini")
+        print("conexion creada")
         
     @staticmethod
     def consulta_prueba():
-        conexion = psycopg2.connect(host=self.config["db"]["host"],database=self.config["db"]["database"],user=self.config["db"]["user"],password=self.config["db"]["password"])
+        conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
         consulta = conexion.cursor()
         consulta.execute("SELECT * FROM prueba")
         datos = consulta.fetchall()
