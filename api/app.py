@@ -14,15 +14,13 @@ def prueba():
     respuesta = []
     consulta = Singelton().singelton()
     datos = consulta.consulta_prueba()
-    print(datos)
-    #for dato in consulta:
-        #diccionario = {
-            #"dato1": dato[0],
-            #"dato2": dato[1]
-        #}
-        #respuesta.append(diccionario)
-    #return jsonify(respuesta)
-    return "hola"
+    for dato in datos:
+        diccionario = {
+            "dato1": dato[0],
+            "dato2": dato[1]
+        }
+        respuesta.append(diccionario)
+    return jsonify(respuesta)
 
 @app.route("/prueba" , methods=["POST"])
 def ingresar():
