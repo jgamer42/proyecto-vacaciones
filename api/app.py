@@ -29,8 +29,9 @@ def ingresar():
         "dato2":request.json["dato2"]
     }
     conexion = Singelton().singelton()
-    conexion.insertar_prueba(datos)
-    return "datos ingresados con exito"
+    respuesta = conexion.insertar_prueba(datos)
+    
+    return respuesta
 
 if __name__ == "__main__":
     app.run()

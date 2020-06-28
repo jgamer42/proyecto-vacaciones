@@ -18,9 +18,17 @@ class Conexion():
         print(datos)
         conexion.close()
         return datos
+
     @staticmethod
     def insertar_prueba(datos):
         conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
         consulta = conexion.cursor()
-        consulta.execute("INSERT INTO prueba (dato1,dato2) VALUES (%(dato1)s ,%(dato2)s)",datos)
-        conexion.close()
+        try:
+            consulta.execute("INSERT INTO prueba (dato1,dato2) VALUES (%(dato1)s ,%(dato2)s)",datos)
+            conexion.commit()
+            return "ingresados con exito"
+        except:
+            return "algo salio mal"
+        finally:
+            consulta.close()
+            conexion.close()
