@@ -7,12 +7,12 @@ from singelton import Singelton
 app = Flask(__name__)
 @app.route("/")
 def index():
-    a = Singelton().singelton()
     return render_template("index.html")
 
 @app.route("/prueba" , methods=["GET"])
 def prueba():
-    respuesta = [{"mensaje":"este es una consulta de prueba","dato":2}]
+    respuesta = Singelton().singelton()
+    respuesta.consulta_prueba()
     return jsonify(respuesta)
 
 @app.route("/prueba" , methods=["POST"])
