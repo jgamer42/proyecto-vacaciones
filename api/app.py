@@ -11,8 +11,15 @@ def index():
 
 @app.route("/prueba" , methods=["GET"])
 def prueba():
-    respuesta = Singelton().singelton()
-    respuesta.consulta_prueba()
+    respuesta = []
+    consulta = Singelton().singelton()
+    consulta.consulta_prueba()
+    for dato in consulta:
+        diccionario = {
+            "dato1": dato[0],
+            "dato2": dato[1]
+        }
+        respuesta.append(diccionario)
     return jsonify(respuesta)
 
 @app.route("/prueba" , methods=["POST"])
