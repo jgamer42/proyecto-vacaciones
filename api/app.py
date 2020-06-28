@@ -13,13 +13,14 @@ def index():
 def prueba():
     respuesta = []
     consulta = Singelton().singelton()
-    consulta.consulta_prueba()
-    for dato in consulta:
-        diccionario = {
-            "dato1": dato[0],
-            "dato2": dato[1]
-        }
-        respuesta.append(diccionario)
+    datos = consulta.consulta_prueba()
+    print(datos)
+    #for dato in consulta:
+        #diccionario = {
+            #"dato1": dato[0],
+            #"dato2": dato[1]
+        #}
+        #respuesta.append(diccionario)
     #return jsonify(respuesta)
     return "hola"
 
