@@ -4,7 +4,6 @@ import os
 config = configparser.ConfigParser()
 config.sections()
 config.read(os.getcwd()+"/bd/config.ini")
-
 class conexion():
     def __init__(self):
         self.conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
