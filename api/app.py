@@ -20,7 +20,8 @@ def prueba():
             "dato2": dato[1]
         }
         respuesta.append(diccionario)
-    return jsonify(respuesta)
+    #return jsonify(respuesta)
+    return "hola"
 
 @app.route("/prueba" , methods=["POST"])
 def ingresar():
