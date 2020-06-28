@@ -5,7 +5,7 @@ config = configparser.ConfigParser()
 config.sections()
 config.read(os.getcwd()+"/bd/config.ini")
 class Conexion():
-    self.__instance = None
+    __instance = None
     def __init__(self):
         self.config = configparser.ConfigParser()
         self.config.sections()
