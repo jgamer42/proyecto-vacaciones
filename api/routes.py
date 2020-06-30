@@ -1,10 +1,10 @@
-from flask import Flask , render_template, jsonify,request
+from flask import render_template, jsonify, request
+from api import app
 import sys
-sys.path.append("./src")
-sys.path.append("./bd")
-from controllers import caso1
-from singelton import Singelton
-app = Flask(__name__)
+from src.controllers import caso1
+from bd.singelton import Singelton
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -32,6 +32,3 @@ def ingresar():
     respuesta = conexion.insertar_prueba(datos)
     
     return respuesta
-
-if __name__ == "__main__":
-    app.run()

@@ -1,4 +1,4 @@
-from conexion import Conexion
+from bd.conexion import Conexion
 
 class Singelton():
     def __init__(self):
