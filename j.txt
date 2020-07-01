@@ -1,0 +1,17 @@
+ El volumen de la unidad C es Windows
+ El n£mero de serie del volumen es: 32B5-D55A
+
+ Directorio de C:\Users\CHEZ\Documents\backend
+
+30/06/2020  07:25 p.m.    <DIR>          .
+30/06/2020  07:25 p.m.    <DIR>          ..
+30/06/2020  07:23 p.m.                12 .gitignore
+30/06/2020  07:23 p.m.    <DIR>          api
+30/06/2020  07:23 p.m.    <DIR>          bd
+30/06/2020  07:25 p.m.                 0 j.txt
+30/06/2020  07:23 p.m.                27 Procfile
+30/06/2020  07:23 p.m.               136 requirements.txt
+30/06/2020  07:23 p.m.    <DIR>          src
+30/06/2020  07:23 p.m.    <DIR>          test
+               4 archivos            175 bytes
+               6 dirs  113.889.832.960 bytes libres
