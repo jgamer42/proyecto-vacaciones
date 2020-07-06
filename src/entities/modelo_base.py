@@ -8,22 +8,19 @@ class Modelo_base:
             "tabla":"tabla",
             "campos":[]
         }
-
-    def consultar(self):
-        datos = self.conexion.consultar(self.config["tabla"])
-        return(datos)
-
+        
+        
     def insertar(self):
-        self.conexion.insertar(self.config,self.datos)
-        return("ok")
+        salida = self.conexion.insertar(self.config,self.datos)
+        return(salida)
 
     def eliminar(self):
-        self.conexion.eliminar(self.config,self.datos)
-        return ("ok") 
+        salida = self.conexion.eliminar(self.config,self.datos)
+        return (salida) 
 
     def actualizar(self):
-        self.conexion.actualizar(self.config,self.datos)
-        return("ok")
+        salida = self.conexion.actualizar(self.config,self.datos)
+        return(salida)
 
     def info(self):
         print(self.datos,"\n",self.config)

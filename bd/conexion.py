@@ -46,7 +46,7 @@ class Conexion():
         except psycopg2.errors.UndefinedTable:
             salida = 1
         except Exception:
-            salida = 2
+            salida = 3
         finally:
             consulta.close()
             conexion.close()
@@ -56,6 +56,7 @@ class Conexion():
     def insertar(sql_config,datos):
         conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
         consulta = conexion.cursor()
+        salida = 0
         try:
             str_consulta=sql.SQL("INSERT INTO {tabla} ({campos}) VALUES ({referencia})").format(
                 tabla = sql.Identifier(sql_config["tabla"]),
@@ -66,17 +67,19 @@ class Conexion():
             conexion.commit()
         except psycopg2.errors.InvalidForeignKey:
             print("error al insertar")
-        #except Exception:
-            #print("cuidado no sabemos porque exploto")
+        except Exception:
+            print("cuidado no sabemos porque exploto")
+            salida = 3
         finally:
             consulta.close()
             conexion.close()
-        return "ok"
+        return(salida)
 
     @staticmethod
     def eliminar(sql_config,datos):
         conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
         consulta = conexion.cursor()
+        salida = 0
         try:
             str_consulta = sql.SQL("DELETE FROM {tabla} WHERE {campo} = {clave}").format(
                 tabla = sql.Identifier(sql_config["tabla"]),
@@ -85,12 +88,15 @@ class Conexion():
             )
             consulta.execute(str_consulta,datos)
             conexion.commit()
+        except psycopg2.errors.SqlStatementNotYetComplete:
+            salida = 1
         except Exception:
-            print("cuidado no sabemos porque exploto")
+            salida = 3
         finally:
             consulta.close()
             conexion.close()
-
+        return (salida)
+        
     @staticmethod
     def actualizar(sql_config,datos):
         conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])

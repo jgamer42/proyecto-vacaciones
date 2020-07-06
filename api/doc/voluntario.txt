@@ -1,0 +1,37 @@
+rutas:
+1) https://crintomiapp.herokuapp.com/voluntario/crear/, metodo POST 
+    formato del json:{
+        "cedula":string,
+        "nombre":string,
+        "apellido":string,
+        "genero":string,
+        "programa":int, Nota: aqui solo existe el 1 de manera temporal, es una clave foranea
+        "correo":string,
+        "telefono":string
+    }
+    
+2) https://crintomiapp.herokuapp.com/voluntario/eliminar/ , metodo DELETE
+    formato del json{
+        "cedula": string
+    }
+    Nota: aun no estan todas las respuestas asi que siempre va a dar la misma respuesta 
+
+3) https://crintomiapp.herokuapp.com/voluntario/actualizar/ , metodo PUT
+    formato del json:{
+        "cedula":string,
+        "nombre":string,
+        "apellido":string,
+        "genero":string,
+        "programa":int, Nota: aqui solo existe el 1 de manera temporal, es una clave foranea
+        "correo":string,
+        "telefono":string
+    }
+    
+4) https://crintomiapp.herokuapp.com/voluntario/consultar/ , metodo GET
+    no tiene json
+    
+5) https://crintomiapp.herokuapp.com/voluntario/consultar/<cedula> , metodo GET
+    no tiene json
+    posibles respuestas:
+        - 201 dato encontrado Nota: el json que retorna por dentro tiene una lista con otra lisa de datos por dentro
+        - 209 no se encontraron datos Nota: el json que retoran tiene un mensaje por dentro

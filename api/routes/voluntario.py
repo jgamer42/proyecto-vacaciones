@@ -2,7 +2,7 @@ from flask import render_template, jsonify, request,abort
 from api import app
 from src.entities.voluntario import Voluntario
 from bd.singelton import Singelton
-from api.excepciones.bd import Dato_inexistente
+from api.excepciones.bd import Dato_inexistente ,Error_inesperado,Fallo_sql
 
 
 @app.route("/voluntario/crear",methods=['POST'])
@@ -22,18 +22,17 @@ def crear_voluntario():
 
 @app.route("/voluntario/eliminar", methods=["DELETE"])
 def eliminar_voluntario():
-    guia = {
-        "cedula":request.json["cedula"],
-        "nombre":None,
-        "apellido":None,
-        "genero":None,
-        "programa":None,
-        "correo":None,
-        "telefono":None
-    }
+    guia = {"cedula":request.json["cedula"]}
     objeto = Voluntario(guia)
-    objeto.eliminar()
-    return("eliminado con exito")
+    respuesta = objeto.eliminar()
+    if(respuesta == 1):
+        raise Fallo_sql()
+    elif (respuesta == 3):
+        raise Error_inesperado()
+    else:
+        salida = jsonify("eliminado con exito")
+        salida.status_code = 201
+    return (salida)
 
 @app.route("/voluntario/actualizar", methods=["PUT"])
 def actualizar_voluntario():
