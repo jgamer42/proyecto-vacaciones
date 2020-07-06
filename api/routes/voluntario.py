@@ -18,7 +18,7 @@ def crear_voluntario():
     }
     objeto = Voluntario(nuevo_voluntario)
     objeto.insertar()
-    return ("ok")
+    return ("insertado con exito")
 
 @app.route("/voluntario/eliminar", methods=["DELETE"])
 def eliminar_voluntario():
@@ -33,7 +33,7 @@ def eliminar_voluntario():
     }
     objeto = Voluntario(guia)
     objeto.eliminar()
-    return("ok")
+    return("eliminado con exito")
 
 @app.route("/voluntario/actualizar", methods=["PUT"])
 def actualizar_voluntario():
@@ -48,14 +48,13 @@ def actualizar_voluntario():
     }
     objeto = Voluntario(nuevos_datos)
     objeto.actualizar()
-    return("ok")
+    return("actualizado con exito")
 
 @app.route("/voluntario/consultar",methods=["GET"])
 def consultar_voluntario_todos():
     conexion = Singelton().singelton()
     datos = conexion.consultar_todo("voluntario")
-    print(datos)
-    return("ok")
+    return jsonify(datos)
 
 @app.route("/voluntario/consultar/<string:cedula>",methods=["GET"])
 def consultar_voluntario_especifico(cedula):
