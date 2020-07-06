@@ -1,6 +1,8 @@
 import psycopg2
+from psycopg2 import sql
 import configparser
 import os 
+import bd.auxiliares as aux 
 config = configparser.ConfigParser()
 config.sections()
 config.read(os.getcwd()+"/bd/config.ini")
@@ -10,25 +12,78 @@ class Conexion():
         print("conexion creada")
 
     @staticmethod
-    def consulta_prueba():
+    def consultar(tabla):
         conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
         consulta = conexion.cursor()
-        consulta.execute("SELECT * FROM prueba")
-        datos = consulta.fetchall()
-        print(datos)
-        conexion.close()
-        return datos
-
+        salida = None
+        try:
+            consulta.execute(sql.SQL("SELECT * FROM {}").format(sql.Identifier(tabla)))
+            datos = consulta.fetchall()
+            salida = datos
+        except psycopg2.errors.UndefinedColumn:
+            print("la columba no existe")
+        except psycopg2.errors.UndefinedTable:
+            print("la tabla no existe")
+        except Exception:
+            print("cuidado no sabemos porque exploto")
+        finally:
+            consulta.close()
+            conexion.close()
+        return(salida)
+    
     @staticmethod
-    def insertar_prueba(datos):
+    def insertar(sql_config,datos):
         conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
         consulta = conexion.cursor()
         try:
-            consulta.execute("INSERT INTO prueba (dato1,dato2) VALUES (%(dato1)s ,%(dato2)s)",datos)
+            str_consulta=sql.SQL("INSERT INTO {tabla} ({campos}) VALUES ({referencia})").format(
+                tabla = sql.Identifier(sql_config["tabla"]),
+                campos = sql.SQL(",").join(map(sql.Identifier,sql_config["campos"])),
+                referencia = sql.SQL(",").join(map(sql.Placeholder,sql_config["campos"])),
+                )
+            consulta.execute(str_consulta,datos)
             conexion.commit()
-            return "ingresados con exito"
-        except:
-            return "algo salio mal"
+        except psycopg2.errors.InvalidForeignKey:
+            print("error al insertar")
+        except Exception:
+            print("cuidado no sabemos porque exploto")
+        finally:
+            consulta.close()
+            conexion.close()
+        return "ok"
+
+    @staticmethod
+    def eliminar(sql_config,config_borrar):
+        conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
+        consulta = conexion.cursor()
+        try:
+            str_consulta = sql.SQL("DELETE FROM {tabla} WHERE {campo} = {clave}").format(
+                tabla = sql.Identifier(sql_config["tabla"]),
+                campo = sql.Identifier(config_borrar["referencia"]),
+                clave = sql.Placeholder(config_borrar["referencia"])
+            )
+            consulta.execute(str_consulta,config_borrar["datos"])
+            conexion.commit()
+        except Exception:
+            print("cuidado no sabemos porque exploto")
+        finally:
+            consulta.close()
+            conexion.close()
+
+    @staticmethod
+    def actualizar(sql_config,datos):
+        conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
+        consulta = conexion.cursor()
+        try:
+            str_consulta = sql.SQL("UPDATE {tabla} SET {data} WHERE {campo} = {referencia}").format(
+                tabla = sql.Identifier(sql_config["tabla"]),
+                data = aux.componer_cadena(sql_config["campos"]),
+                campo = sql.Identifier(sql_config["buscar"]),
+                referencia = sql.Placeholder(sql_config["buscar"])
+            )
+            consulta.execute(str_consulta,datos)
+        except Exception:
+            print("cuidado no sabemos porque exploto")
         finally:
             consulta.close()
             conexion.close()
