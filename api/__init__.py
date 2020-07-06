@@ -3,3 +3,4 @@ app = Flask(__name__)
 
 #from api import otros
 from api.routes import casos_de_uso,actividad,fundacion,proyecto,voluntario
+from api import manejador_errores

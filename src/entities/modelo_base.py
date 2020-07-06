@@ -18,15 +18,12 @@ class Modelo_base:
         return("ok")
 
     def eliminar(self):
-        config_borrar= {
-            "referencia":"id",
-            "datos":self.datos["id"]
-        }
-        self.conexion.eliminar(self.config,config_borrar)
+        self.conexion.eliminar(self.config,self.datos)
         return ("ok") 
 
     def actualizar(self):
-        pass
+        self.conexion.actualizar(self.config,self.datos)
+        return("ok")
 
     def info(self):
         print(self.datos,"\n",self.config)
