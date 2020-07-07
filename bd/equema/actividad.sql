@@ -11,5 +11,5 @@ CREATE TABLE "actividad"
     CONSTRAINT "proyecto" FOREIGN KEY ("proyecto")
         REFERENCES "proyecto" ("id"),
     CONSTRAINT "voluntario" FOREIGN KEY ("voluntario")
-        REFERENCES "voluntario" ("cedula")
+        REFERENCES "voluntario" ("cedula") ON DELETE CASCADE
 )

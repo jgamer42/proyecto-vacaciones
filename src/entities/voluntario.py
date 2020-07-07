@@ -1,4 +1,5 @@
 from src.entities.modelo_base import Modelo_base
+from api.excepciones.dominio import Error_validacion
 from cerberus import Validator
 class Voluntario(Modelo_base):
     def __init__ (self,datos):
@@ -18,9 +19,7 @@ class Voluntario(Modelo_base):
             "telefono":{"type":"string","required":False,"minlength":10}
         }
         self.validador = Validator(self.schema)
-        if(self.validador.validate(datos)):
-            print("objeto creado de manera exitosa")
-            self.info()
+        if(not self.validador.validate(datos)):
+            raise Error_validacion(self.validador.errors)
         else:
-            print("error al crearlo")
-            print(self.validador.errors)
+            self.info()

@@ -5,16 +5,21 @@ rutas:
         "nombre":string,
         "apellido":string,
         "genero":string,
-        "programa":int, Nota: aqui solo existe el 1 de manera temporal, es una clave foranea
+        "programa":int,
         "correo":string,
         "telefono":string
     }
+    Posibles respuestas:
+        201 creado exitosamente
+        409 no existe esa clave foranea
     
 2) https://crintomiapp.herokuapp.com/voluntario/eliminar/ , metodo DELETE
     formato del json{
         "cedula": string
     }
-    Nota: aun no estan todas las respuestas asi que siempre va a dar la misma respuesta 
+    Posibles respuestas:
+        201 dato eleminado exitosamente
+        409
 
 3) https://crintomiapp.herokuapp.com/voluntario/actualizar/ , metodo PUT
     formato del json:{
@@ -26,6 +31,8 @@ rutas:
         "correo":string,
         "telefono":string
     }
+    Posibles respuestas:
+        200 datos actualizados
     
 4) https://crintomiapp.herokuapp.com/voluntario/consultar/ , metodo GET
     no tiene json

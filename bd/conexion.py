@@ -20,17 +20,12 @@ class Conexion():
             consulta.execute(sql.SQL("SELECT * FROM {}").format(sql.Identifier(tabla)))
             datos = consulta.fetchall()
             salida = datos
-        except psycopg2.errors.UndefinedColumn:
-            print("la columba no existe")
-        except psycopg2.errors.UndefinedTable:
-            print("la tabla no existe")
-        except Exception:
-            print("cuidado no sabemos porque exploto")
         finally:
             consulta.close()
             conexion.close()
         return(salida)
-    
+
+    @staticmethod
     def consultar_especifico(tabla,referencia,dato):
         conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
         consulta = conexion.cursor()
@@ -43,10 +38,25 @@ class Conexion():
                 ),dato)
             datos = consulta.fetchall()
             salida = datos
-        except psycopg2.errors.UndefinedTable:
-            salida = 1
-        except Exception:
-            salida = 3
+        finally:
+            consulta.close()
+            conexion.close()
+        return(salida)
+
+    @staticmethod
+    def consultar_campo(config_sql):
+        conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
+        consulta = conexion.cursor()
+        salida = None
+        try:
+            consulta.execute(sql.SQL("SELECT {campo} FROM {tabla} WHERE {referencia} = {dato}").format(
+                campo = sql.Identifier(config_sql["campo"]),
+                tabla = sql.Identifier(config_sql["tabla"]),
+                referencia = sql.Identifier(config_sql["buscar"]),
+                dato = sql.Placeholder(config_sql["buscar"])
+                ),config_sql)
+            datos = consulta.fetchall()
+            salida = datos
         finally:
             consulta.close()
             conexion.close()
@@ -62,14 +72,9 @@ class Conexion():
                 tabla = sql.Identifier(sql_config["tabla"]),
                 campos = sql.SQL(",").join(map(sql.Identifier,sql_config["campos"])),
                 referencia = sql.SQL(",").join(map(sql.Placeholder,sql_config["campos"])),
-                )
+            )
             consulta.execute(str_consulta,datos)
             conexion.commit()
-        except psycopg2.errors.InvalidForeignKey:
-            print("error al insertar")
-        except Exception:
-            print("cuidado no sabemos porque exploto")
-            salida = 3
         finally:
             consulta.close()
             conexion.close()
@@ -86,12 +91,10 @@ class Conexion():
                 campo = sql.Identifier(sql_config["buscar"]),
                 clave = sql.Placeholder(sql_config["buscar"])
             )
+            print(str_consulta.as_string(consulta))
             consulta.execute(str_consulta,datos)
             conexion.commit()
-        except psycopg2.errors.SqlStatementNotYetComplete:
-            salida = 1
-        except Exception:
-            salida = 3
+            
         finally:
             consulta.close()
             conexion.close()
@@ -110,8 +113,7 @@ class Conexion():
             )
             consulta.execute(str_consulta,datos)
             conexion.commit()
-        except Exception:
-            print("cuidado no sabemos porque exploto")
         finally:
             consulta.close()
             conexion.close()
+    
