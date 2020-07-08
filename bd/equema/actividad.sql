@@ -9,7 +9,7 @@ CREATE TABLE "actividad"
     "duracion" INTEGER NOT NULL,
     "fecha" DATE NOT NULL,
     CONSTRAINT "proyecto" FOREIGN KEY ("proyecto")
-        REFERENCES "proyecto" ("id"),
+        REFERENCES "proyecto" ("id") ON DELETE CASCADE,
     CONSTRAINT "voluntario" FOREIGN KEY ("voluntario")
         REFERENCES "voluntario" ("cedula") ON DELETE CASCADE
 )

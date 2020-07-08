@@ -1,27 +1,36 @@
 rutas:
 1) https://crintomiapp.herokuapp.com/voluntario/crear/, metodo POST 
+    Uso: peticion para insertar voluntarios
     formato del json:{
         "cedula":string,
         "nombre":string,
         "apellido":string,
         "genero":string,
-        "programa":int,
+        "programa":int
         "correo":string,
         "telefono":string
     }
     Posibles respuestas:
         201 creado exitosamente
         409 no existe esa clave foranea
-    
-2) https://crintomiapp.herokuapp.com/voluntario/eliminar/ , metodo DELETE
+    Nota: el programa debe ser el id de alguno de los json que reciben en la lista de programas
+
+2) https://crintomiapp.herokuapp.com/voluntario/crear/, metodo GET
+    Uso: peticion para traer la info necesaria para la vista de crear usuario
+    no recibe json
+    Posibles respuestas:
+        200 datos recibidos
+
+3) https://crintomiapp.herokuapp.com/voluntario/eliminar/ , metodo DELETE
+    Uso: peticion para eliminar voluntarios
     formato del json{
         "cedula": string
     }
     Posibles respuestas:
-        201 dato eleminado exitosamente
-        409
+        200 dato eleminado exitosamente
 
-3) https://crintomiapp.herokuapp.com/voluntario/actualizar/ , metodo PUT
+4) https://crintomiapp.herokuapp.com/voluntario/actualizar/ , metodo PUT
+    Uso: peticion para actualizar voluntarios
     formato del json:{
         "cedula":string,
         "nombre":string,
@@ -33,12 +42,18 @@ rutas:
     }
     Posibles respuestas:
         200 datos actualizados
-    
-4) https://crintomiapp.herokuapp.com/voluntario/consultar/ , metodo GET
-    no tiene json
-    
-5) https://crintomiapp.herokuapp.com/voluntario/consultar/<cedula> , metodo GET
-    no tiene json
+        409 alguno de los datos no es valido
+
+5) https://crintomiapp.herokuapp.com/voluntario/consultar/ , metodo GET
+    Uso: peticion para consultar todos los voluntarios
+    no recibe json
     posibles respuestas:
-        - 201 dato encontrado Nota: el json que retorna por dentro tiene una lista con otra lisa de datos por dentro
-        - 209 no se encontraron datos Nota: el json que retoran tiene un mensaje por dentro
+        200 datos recibidos
+        204 no hay datos que mostrar
+
+6) https://crintomiapp.herokuapp.com/voluntario/consultar/<cedula> , metodo GET
+    Uso: peticion para consultar un voluntario especifico
+    no recibe json
+    posibles respuestas:
+        200 datos recibidos
+        204 no hay datos que mostrar
