@@ -1,0 +1,33 @@
+rutas:
+1) https://crintomiapp.herokuapp.com/proyecto/crear, metodo POST 
+    Uso: peticion para insertar proyectos
+    formato del json:{
+        "nombre":string,
+        "descripcion":string,
+        "fecha_inicio":date,
+        "fecha_final":date
+    }
+    Posibles respuestas:
+        201 creado exitosamente
+        409 algun campo no cumple 
+
+2) https://crintomiapp.herokuapp.com/proyecto/eliminar, metodo DELETE
+    Uso: peticion para eliminar proyectos
+    formato del json:{"id": int} 
+    Nota: tiene que ser una clave valida
+    Posibles respuestas:
+        201 creado exitosamente
+        409 algun campo no cumple 
+3) https://crintomiapp.herokuapp.com/proyecto/actualizar, metodo PUT
+    Uso: peticion para actualizar proyectos
+    formato del json:{
+        "id": int, 
+        "nombre":string,
+        "descripcion":string,
+        "fecha_inicio":date,
+        "fecha_final":date
+    }
+    Nota: el id tiene que ser una clave valida 
+    Posibles respuestas:
+        201 creado exitosamente
+        403 falto el id en la peticion 

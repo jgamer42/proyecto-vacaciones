@@ -22,3 +22,14 @@ class No_hay_datos(Exception):
         response["message"] = "no hay datos que mostrar"
         return(response)
 
+class NO_sabe_que_buscar(Exception):
+    def __init__(self):
+        super().__init__(self)
+        self.codigo = 403
+        self.payload = None
+
+    def generar_respuesta(self):
+        response = dict(self.payload or ())
+        response["message"] = "no hay datos que mostrar"
+        return(response)
+

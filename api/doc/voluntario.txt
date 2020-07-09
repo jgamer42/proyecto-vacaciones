@@ -1,5 +1,5 @@
 rutas:
-1) https://crintomiapp.herokuapp.com/voluntario/crear/, metodo POST 
+1) https://crintomiapp.herokuapp.com/voluntario/crear, metodo POST 
     Uso: peticion para insertar voluntarios
     formato del json:{
         "cedula":string,
@@ -15,13 +15,13 @@ rutas:
         409 no existe esa clave foranea
     Nota: el programa debe ser el id de alguno de los json que reciben en la lista de programas
 
-2) https://crintomiapp.herokuapp.com/voluntario/crear/, metodo GET
+2) https://crintomiapp.herokuapp.com/voluntario/crear, metodo GET
     Uso: peticion para traer la info necesaria para la vista de crear usuario
     no recibe json
     Posibles respuestas:
         200 datos recibidos
 
-3) https://crintomiapp.herokuapp.com/voluntario/eliminar/ , metodo DELETE
+3) https://crintomiapp.herokuapp.com/voluntario/eliminar , metodo DELETE
     Uso: peticion para eliminar voluntarios
     formato del json{
         "cedula": string
@@ -29,7 +29,7 @@ rutas:
     Posibles respuestas:
         200 dato eleminado exitosamente
 
-4) https://crintomiapp.herokuapp.com/voluntario/actualizar/ , metodo PUT
+4) https://crintomiapp.herokuapp.com/voluntario/actualizar , metodo PUT
     Uso: peticion para actualizar voluntarios
     formato del json:{
         "cedula":string,
@@ -44,7 +44,7 @@ rutas:
         200 datos actualizados
         409 alguno de los datos no es valido
 
-5) https://crintomiapp.herokuapp.com/voluntario/consultar/ , metodo GET
+5) https://crintomiapp.herokuapp.com/voluntario/consultar , metodo GET
     Uso: peticion para consultar todos los voluntarios
     no recibe json
     posibles respuestas:
