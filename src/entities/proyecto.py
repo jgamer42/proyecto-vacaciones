@@ -16,6 +16,8 @@ class Proyecto(Modelo_base):
             "descripcion":{"type":"string","required":False},
             "fecha_inicio":{"type":"datetime","coerce":cast_fecha ,"required":False},
             "fecha_final":{"type":"datetime","coerce":cast_fecha ,"required":False},
+            "sede":{"type":"integer","required":False},
+            "ods":{"type":"integer","required":False}
         }
         self.validador = Validator(self.schema)
         if(not self.validador.validate(datos)):

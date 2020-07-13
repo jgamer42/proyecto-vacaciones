@@ -2,16 +2,23 @@ from bd.singelton import  Singelton
 
 def formato_voluntario(datos):
     conexion = Singelton().singelton()
-    consulta_horas = {
-        "tabla":"actividad",
-        "campo":"duracion",
+    consulta_actividades = {
+        "tabla":"actividad_voluntario",
+        "campo":"actividad",
         "buscar":"voluntario",
         "voluntario":datos[0]
     }
-    horas = conexion.consultar_campo(consulta_horas)
+    lista_actividades = conexion.consultar_campo(consulta_actividades)
     total_horas = 0
-    for hora in horas:
-        total_horas += hora[0]
+    for actividad in lista_actividades:
+        consulta_horas={
+            "tabla":"actividad",
+            "campo":"duracion",
+            "buscar":"id",
+            "id":actividad
+        }
+        hora_actividad = conexion.consultar_campo(consulta_horas)
+        total_horas += hora_actividad[0][0]
     consulta_programa = {
         "tabla":"programa",
         "campo":"nombre",
@@ -35,5 +42,41 @@ def formato_programa(datos):
     salida = {
         "id":datos[0],
         "nombre":datos[1]
+    }
+    return(salida)
+
+def formato_proyecto(datos):
+    salida = {
+        "id":datos[0],
+        "nombre":datos[1],
+        "descripcion":datos[2],
+        "inicio":datos[3],
+        "fin":datos[4]
+    }
+    return(salida)
+
+def formato_ods(datos):
+    salida = {
+        "id":datos[0],
+        "nombre":datos[1],
+        "referencia":datos[2]
+    }
+    return(salida)
+
+def formato_fundacion(datos):
+    salida = {
+        "id":datos[0],
+        "nombre":datos[1],
+        "direccion":datos[2]
+    }
+    return(salida)
+
+def formato_sede(datos):
+    salida = {
+        "id":datos[0],
+        "nombre":datos[1],
+        "direccion":datos[2],
+        "director":datos[3],
+        "telefono":datos[4]
     }
     return(salida)

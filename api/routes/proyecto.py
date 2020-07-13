@@ -1,8 +1,61 @@
 from flask import render_template, jsonify, request
 from api import app
-from api.excepciones.dominio import NO_sabe_que_buscar
+from api.excepciones.dominio import NO_sabe_que_buscar,No_hay_datos
+from api.formater import formato_proyecto,formato_ods,formato_sede,formato_fundacion
 from src.entities.proyecto import Proyecto
 from bd.singelton import Singelton
+
+
+@app.route("/proyecto/consultar",methods=["GET"])
+def consultar_proyectos_todos():
+    conexion = Singelton().singelton()
+    datos = conexion.consultar_todo("proyecto")
+    salida = []
+    if(datos == []):
+        raise  No_hay_datos()
+    for dato in datos:
+        aux = formato_proyecto(dato)
+        salida.append(aux)
+    salida = jsonify(salida)
+    salida.status_code = 200
+    return (salida)
+
+@app.route("/proyecto/consultar/<int:id>",methods=["GET"])
+def consultar_proyectos_especifico(id):
+    conexion = Singelton().singelton()
+    dato = {"id":id}
+    consulta = conexion.consultar_especifico("proyecto","id",dato)
+    print(consulta)
+    if (consulta == []):
+        raise No_hay_datos()
+    salida = formato_proyecto(consulta[0])
+    salida = jsonify(salida)
+    salida.status_code = 200
+    return (salida)
+
+@app.route("/proyecto/crear",methods=["GET"])
+def datos_crear_proyecto():
+    conexion = Singelton().singelton()
+    salida={
+        "ods":[],
+        "fundaciones":[],
+        "sedes":[]
+    }
+    ods = conexion.consultar_todo("ods")
+    fundaciones = conexion.consultar_todo("fundacion")
+    sedes = conexion.consultar_todo("sede")
+    for dato in ods:
+        aux = formato_ods(dato)
+        salida["ods"].append(aux)
+    for fundacion in fundaciones:
+        aux = formato_fundacion(fundacion)
+        salida["fundaciones"].append(aux)
+    for sede in sedes:
+        aux = formato_sede(sede)
+        salida["sedes"].append(aux)
+    salida = jsonify(salida)
+    salida.status_code = 200
+    return(salida)
 
 @app.route("/proyecto/crear", methods=["POST"])
 def crear_proyecto():

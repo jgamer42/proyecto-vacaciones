@@ -16,8 +16,9 @@ rutas:
     formato del json:{"id": int} 
     Nota: tiene que ser una clave valida
     Posibles respuestas:
-        201 creado exitosamente
+        200 eliminado exitosamente
         409 algun campo no cumple 
+        
 3) https://crintomiapp.herokuapp.com/proyecto/actualizar, metodo PUT
     Uso: peticion para actualizar proyectos
     formato del json:{
@@ -29,5 +30,5 @@ rutas:
     }
     Nota: el id tiene que ser una clave valida 
     Posibles respuestas:
-        201 creado exitosamente
+        200 eliminado exitosamente
         403 falto el id en la peticion 
