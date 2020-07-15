@@ -46,6 +46,9 @@ def formato_programa(datos):
     return(salida)
 
 def formato_proyecto(datos):
+    print(datos)
+    conexion = Singelton().singelton()
+    lista_relacion_actividades = conexio.consultar_campo()
     salida = {
         "id":datos[0],
         "nombre":datos[1],

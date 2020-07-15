@@ -6,3 +6,4 @@ AND "voluntario"."programa" = "programa"."id"
 AND "voluntario"."cedula" = "actividad_voluntario"."voluntario"
 AND "actividad"."id" = "actividad_voluntario"."actividad"
 GROUP BY "facultad"."nombre";
+

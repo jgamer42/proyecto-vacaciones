@@ -116,4 +116,21 @@ class Conexion():
         finally:
             consulta.close()
             conexion.close()
-    
+
+    @staticmethod
+    def consulta_con_lista(config_sql):
+        conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
+        consulta = conexion.cursor()
+        try:
+            cadena_sql = sql.SQL("SELECT {campo} FROM {tabla} WHERE {buscar} IN {datos}").format(
+                campo = sql.Identifier(config_sql["campo"]),    
+                tabla = sql.Identifier(config_sql["tabla"]),
+                buscar = sql.Identifier(config_sql["buscar"]),
+                datos = sql.Placeholder(config_sql["datos"])
+            )
+            consulta.execute(cadena_sql,config_sql)
+            datos = consulta.fetchall()
+        finally:
+            consulta.close()
+            conexion.close()
+        return datos

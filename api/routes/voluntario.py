@@ -1,4 +1,4 @@
-from flask import render_template, jsonify, request,abort
+from flask import render_template, jsonify, request,abort,make_response
 from api import app
 from src.entities.voluntario import Voluntario
 from bd.singelton import Singelton
@@ -33,8 +33,8 @@ def datos_crear_voluntario():
         aux = formato_programa(dato)
         salida.append(aux)
     salida = jsonify(salida)
-    salida.status_code = 200
-    return (salida)
+    salida.status_code=200
+    return(salida)
 
 @app.route("/voluntario/eliminar", methods=["DELETE"])
 def eliminar_voluntario():
