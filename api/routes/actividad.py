@@ -1,4 +1,4 @@
-from flask import render_template, jsonify, request,make_response
+from flask import render_template, jsonify, request
 from api import app
 from src.controllers import caso1
 from src.entities.actividad import Actividad

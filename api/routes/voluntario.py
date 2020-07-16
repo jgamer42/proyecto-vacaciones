@@ -5,8 +5,6 @@ from bd.singelton import Singelton
 from api.excepciones.dominio import No_hay_datos
 from api.formater import formato_voluntario, formato_programa
 
-
-
 @app.route("/voluntario/crear",methods=['POST'])
 def crear_voluntario():
     nuevo_voluntario = {

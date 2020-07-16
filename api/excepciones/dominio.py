@@ -22,7 +22,7 @@ class No_hay_datos(Exception):
         response["message"] = "no hay datos que mostrar"
         return(response)
 
-class NO_sabe_que_buscar(Exception):
+class No_sabe_que_buscar(Exception):
     def __init__(self):
         super().__init__(self)
         self.codigo = 403

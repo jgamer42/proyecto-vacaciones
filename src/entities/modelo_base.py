@@ -15,7 +15,6 @@ class Modelo_base:
         return(salida)
 
     def eliminar(self):
-        print(self.datos)
         salida = self.conexion.eliminar(self.config,self.datos)
         return (salida) 
 

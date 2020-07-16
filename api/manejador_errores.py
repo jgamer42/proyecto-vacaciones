@@ -1,6 +1,6 @@
 from api import app
 from flask import request,jsonify
-from api.excepciones.dominio import Error_validacion ,No_hay_datos, NO_sabe_que_buscar
+from api.excepciones.dominio import Error_validacion ,No_hay_datos, No_sabe_que_buscar
 import psycopg2
 
 @app.errorhandler(Error_validacion)
@@ -9,7 +9,7 @@ def error_validacion(error):
     response.status_code = error.codigo
     return (response)
 
-@app.errorhandler(NO_sabe_que_buscar)
+@app.errorhandler(No_sabe_que_buscar)
 def error_busqueda(error):
     response = jsonify(error.generar_respuesta())
     response.status_code = error.codigo

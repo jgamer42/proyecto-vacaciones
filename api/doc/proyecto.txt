@@ -32,3 +32,15 @@ rutas:
     Posibles respuestas:
         200 eliminado exitosamente
         403 falto el id en la peticion 
+4)  https://crintomiapp.herokuapp.com/proyecto/crear , metodo GET
+    Uso: peticion para traer los datos necesarios para crear proyectos 
+    no tiene json
+    posibles respuestas:
+        200 peticion exitosa
+
+5) https://crintomiapp.herokuapp.com/proyecto/consultar/<id>, metodo GET
+    Uso: si se manda con el id consulta un proyecto especifico, de lo contrario los busca a todos
+    no tiene json
+    posibles respuestas:
+        200 peticion exitosa
+        204 no hay datos

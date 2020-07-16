@@ -1,5 +1,5 @@
 from bd.singelton import  Singelton
-
+from api.aux import organizar
 def formato_voluntario(datos):
     conexion = Singelton().singelton()
     consulta_actividades = {
@@ -46,15 +46,64 @@ def formato_programa(datos):
     return(salida)
 
 def formato_proyecto(datos):
-    print(datos)
     conexion = Singelton().singelton()
-    lista_relacion_actividades = conexio.consultar_campo()
+    consulta_lista_actividades = {
+        "tabla":"actividad",
+        "campo":"nombre",
+        "buscar":"proyecto",
+        "proyecto":datos[0]
+    }
+    consulta_lista_ods = {
+        "tabla":"ods_proyecto",
+        "campo":"ods",
+        "buscar":"proyecto",
+        "proyecto":datos[0]
+    }
+    consulta_lista_sedes = {
+        "tabla":"sede_proyecto",
+        "campo":"sede",
+        "buscar":"proyecto",
+        "proyecto":datos[0]
+    }
+    lista_actividades = conexion.consultar_campo(consulta_lista_actividades)
+    lista_actividades = organizar(lista_actividades)
+    lista_relacion_ods = conexion.consultar_campo(consulta_lista_ods)
+    lista_relacion_ods = organizar(lista_relacion_ods)
+    lista_relacion_sedes = conexion.consultar_campo(consulta_lista_sedes)
+    lista_relacion_sedes = organizar(lista_relacion_sedes)
+    consulta_lista_ods={
+        "tabla":"ods",
+        "campo":"nombre",
+        "buscar":"id",
+        "datos":"lista",
+        "lista":tuple(lista_relacion_ods)
+    }
+    consulta_lista_sedes = {
+        "tabla":"sede",
+        "campo":"nombre",
+        "buscar":"id",
+        "datos":"lista",
+        "lista":tuple(lista_relacion_sedes)
+    }
+    if(consulta_lista_sedes["lista"] == ()):
+        lista_sede = None
+    else:
+        lista_sede = conexion.consulta_con_lista(consulta_lista_sedes)
+        lista_sede = organizar(lista_sede)
+    if(consulta_lista_ods["lista"] == ()):
+        lista_ods = None
+    else:
+        lista_ods = conexion.consulta_con_lista(consulta_lista_ods)
+        lista_ods = organizar(lista_ods)
     salida = {
         "id":datos[0],
         "nombre":datos[1],
         "descripcion":datos[2],
         "inicio":datos[3],
-        "fin":datos[4]
+        "fin":datos[4],
+        "actividades":lista_actividades,
+        "ods":lista_ods,
+        "sedes":lista_sede
     }
     return(salida)
 

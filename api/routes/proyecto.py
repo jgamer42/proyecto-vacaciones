@@ -1,6 +1,6 @@
 from flask import render_template, jsonify, request,make_response
 from api import app
-from api.excepciones.dominio import NO_sabe_que_buscar,No_hay_datos
+from api.excepciones.dominio import No_sabe_que_buscar,No_hay_datos
 from api.formater import formato_proyecto,formato_ods,formato_sede,formato_fundacion
 from src.entities.proyecto import Proyecto
 from bd.singelton import Singelton
@@ -25,7 +25,6 @@ def consultar_proyectos_especifico(id):
     conexion = Singelton().singelton()
     dato = {"id":id}
     consulta = conexion.consultar_especifico("proyecto","id",dato)
-    print(consulta)
     if (consulta == []):
         raise No_hay_datos()
     salida = formato_proyecto(consulta[0])
@@ -111,7 +110,7 @@ def actualizar_proyecto():
         objeto = Proyecto(nuevo_proyecto)
         objeto.insertar()
     else:
-        raise NO_sabe_que_buscar()
+        raise No_sabe_que_buscar()
     salida = jsonify("datos ingresados con exito")
     salida.status_code = 201
     return(salida)
