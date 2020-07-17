@@ -107,6 +107,47 @@ def formato_proyecto(datos):
     }
     return(salida)
 
+def formato_actividades(datos):
+    conexion = Singelton().singelton()
+    consulta_proyectos = {
+        "tabla":"proyecto",
+        "campo":"nombre",
+        "buscar":"id",
+        "id":datos[1]
+    }
+    consulta_lista_participantes = {
+        "tabla":"actividad_voluntario",
+        "campo":"voluntario",
+        "buscar":"actividad",
+        "actividad":datos[0]
+    }
+    nombre_proyecto = conexion.consultar_campo(consulta_proyectos)
+    lista_relacion = conexion.consultar_campo(consulta_lista_participantes)
+    lista_relacion = organizar(lista_relacion)
+    consulta_lista_participantes = {
+        "tabla":"voluntario",
+        "campo":"nombre",
+        "buscar":"cedula",
+        "datos":"lista",
+        "lista":tuple(lista_relacion)
+    }
+    lista_participantes = []
+    if(lista_relacion == []):
+        pass
+    else:
+        lista_participantes = conexion.consulta_con_lista(consulta_lista_participantes)
+        lista_participantes = organizar(lista_participantes)
+    salida = {
+        "id":datos[0],
+        "proyecto":nombre_proyecto[0][0],
+        "nombre":datos[2],
+        "descripcion":datos[3],
+        "duracion":datos[4],
+        "fecha":datos[5],
+        "participantes":lista_participantes
+    }
+    return (salida)
+
 def formato_ods(datos):
     salida = {
         "id":datos[0],

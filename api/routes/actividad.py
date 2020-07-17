@@ -1,31 +1,37 @@
 from flask import render_template, jsonify, request
 from api import app
-from src.controllers import caso1
 from src.entities.actividad import Actividad
 from bd.singelton import Singelton
+from api.formater import formato_actividades
 
-@app.route("/actividad",methods=["GET"])
-def consultar():
-    return("hola")
-
-@app.route("/actividad",methods=["POST"])
-def crear():
-    datos={
-        "id": request.json["id"],
-        "voluntario": request.json["voluntario"],
-        "proyecto": request.json["proyecto"],
-        "nombre": request.json["nombre"],
-        "descripcion": request.json["descripcion"],
-        "duracion": request.json["duracion"],
-        "fecha":request.json["fecha"]
+@app.route("/actividad/crear", methods = ["GET"])
+def datos_para_crear_actividad():
+    conexion = Singelton().singelton()
+    proyectos = conexion.consultar_todo("proyecto")
+    salida = {
+        "proyectos":[]
     }
-    objeto = Actividad(datos)
-    return ("ok")
-    
-@app.route("/actividad",methods=["PUT"])
-def actualizar():
-    pass
+    for proyecto in proyectos:
+        elemento = {
+            "id": proyecto[0],
+            "nombre":proyecto[1]
+        }
+        salida["proyectos"].append(elemento)
+    salida = jsonify(salida)
+    salida.status_code = 200 
+    return salida
 
-@app.route("/actividad",methods=["DELETE"])
-def eliminar():
-    pass
+@app.route("/actividad/consultar",methods = ["GET"])
+def consultar_todas_actividades():
+    conexion = Singelton().singelton()
+    actividades = conexion.consultar_todo("actividad")
+    salida = []
+    for actividad in actividades:
+        aux = formato_actividades(actividad)
+        salida.append(aux)
+    salida  = jsonify(salida)
+    salida.status_code = 200
+    return (salida)
+
+@app.route("/actividad/consultar/<int:id>" , methods = ['GET'])
+    

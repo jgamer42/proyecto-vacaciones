@@ -1,0 +1,13 @@
+1) https://crintomiapp.herokuapp.com/actividad/crear, metodo GET
+    Uso: trae las llaves foraneas necesarias para crear proyectos
+    no tiene json
+    posibles respuestas:
+        200 datos 
+        204 no hay datos
+
+2) https://crintomiapp.herokuapp.com/actividad/consultar/<id>, metodo GET
+    Uso: trae todas las actividades o una actividad especifica si se agrega el id
+    no tiene json
+    posibles respuestas:
+        200 datos 
+        204 no hay datos
