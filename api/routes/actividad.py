@@ -32,6 +32,3 @@ def consultar_todas_actividades():
     salida  = jsonify(salida)
     salida.status_code = 200
     return (salida)
-
-@app.route("/actividad/consultar/<int:id>" , methods = ['GET'])
-    
