@@ -43,7 +43,7 @@ def eliminar_voluntario():
     salida.status_code = 200
     return (salida)
 
-@app.route("/voluntario/actualizar", methods=["PUT"])
+@app.route("/voluntario/actualizar", methods=['PUT'])
 def actualizar_voluntario():
     nuevos_datos = {
         "cedula":request.json["cedula"],
@@ -52,7 +52,8 @@ def actualizar_voluntario():
         "genero":request.json["genero"],
         "programa":request.json["programa"],
         "correo":request.json["correo"],
-        "telefono":request.json["telefono"]
+        "telefono":request.json["telefono"],
+        "cedula_antigua":request.json["cedulaAntigua"]
     }
     objeto = Voluntario(nuevos_datos)
     objeto.actualizar()

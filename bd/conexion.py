@@ -109,10 +109,11 @@ class Conexion():
                 tabla = sql.Identifier(sql_config["tabla"]),
                 data = aux.componer_cadena(sql_config["campos"]),
                 campo = sql.Identifier(sql_config["buscar"]),
-                referencia = sql.Placeholder(sql_config["buscar"])
+                referencia = sql.Placeholder(sql_config["actualizar"])
             )
             consulta.execute(str_consulta,datos)
             conexion.commit()
+            print("exito")
         finally:
             consulta.close()
             conexion.close()
