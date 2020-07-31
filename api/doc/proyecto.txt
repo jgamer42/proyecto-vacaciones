@@ -4,8 +4,10 @@ rutas:
     formato del json:{
         "nombre":string,
         "descripcion":string,
-        "fecha_inicio":date,
-        "fecha_final":date
+        "fecha_inicio":date (año-mes-dia),
+        "fecha_final":date (año-mes-dia),
+        "lista_ods: lista de int (claves foraneas)
+        "sedes":lista de int (claves foraneas)
     }
     Posibles respuestas:
         201 creado exitosamente

@@ -63,14 +63,18 @@ def crear_proyecto():
             "nombre":request.json["nombre"],
             "descripcion":request.json["descripcion"],
             "fecha_inicio":request.json["fecha_inicio"],
-            "fecha_final":request.json["fecha_inicio"]
+            "fecha_final":request.json["fecha_inicio"],
+            "lista_ods":request.json["lista_ods"],
+            "sedes":request.json["sedes"]
         }
     else:
         nuevo_proyecto = {
             "nombre":request.json["nombre"],
             "descripcion":request.json["descripcion"],
             "fecha_inicio":request.json["fecha_inicio"],
-            "fecha_final":request.json["fecha_final"]
+            "fecha_final":request.json["fecha_final"],
+            "lista_ods":request.json["lista_ods"],
+            "sedes":request.json["sedes"]
         }
         
     objeto = Proyecto(nuevo_proyecto)

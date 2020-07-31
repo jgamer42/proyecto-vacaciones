@@ -4,7 +4,7 @@ CREATE TABLE "sede_proyecto"
     "proyecto" SMALLINT NOT NULL,
     "sede" SMALLINT NOT NULL,
     CONSTRAINT "fkProyecto" FOREIGN KEY ("proyecto")
-        REFERENCES "proyecto" ("id"),
+        REFERENCES "proyecto" ("id") ON DELETE CASCADE,
     CONSTRAINT "fkSede" FOREIGN KEY ("sede")
-        REFERENCES "sede" ("id")
+        REFERENCES "sede" ("id") ON DELETE CASCADE
 )
