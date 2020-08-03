@@ -123,8 +123,7 @@ class Conexion():
         conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
         consulta = conexion.cursor()
         try:
-            cadena_sql = sql.SQL("SELECT {campo} FROM {tabla} WHERE {buscar} IN {datos}").format(
-                campo = sql.Identifier(config_sql["campo"]),    
+            cadena_sql = sql.SQL("SELECT * FROM {tabla} WHERE {buscar} IN {datos}").format(    
                 tabla = sql.Identifier(config_sql["tabla"]),
                 buscar = sql.Identifier(config_sql["buscar"]),
                 datos = sql.Placeholder(config_sql["datos"])

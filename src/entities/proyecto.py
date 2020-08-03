@@ -19,6 +19,7 @@ class Proyecto(Modelo_base):
             "fecha_final":{"type":"datetime","coerce":cast_fecha ,"required":False},
             "sedes":{"type":'list', "required":False},
             "lista_ods":{"type":'list', "required":False},
+            "fundaciones":{"type":'list',"required":False}
         }
         self.validador = Validator(self.schema)
         if(not self.validador.validate(datos)):
@@ -51,3 +52,13 @@ class Proyecto(Modelo_base):
                 "sede":sede
             }
             self.conexion.insertar(config_sede,datos)
+        config_fundacion={
+            "tabla":"proyecto_fundacion",
+            "campos":["proyecto","fundacion"]
+        }
+        for fundacion in self.datos["fundaciones"]:
+            datos={
+                "proyecto":key,
+                "fundacion":fundacion
+            }
+            self.conexion.insertar(config_fundacion,datos)

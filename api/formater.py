@@ -1,5 +1,5 @@
 from bd.singelton import  Singelton
-from api.aux import organizar
+from api.aux import organizar,formatear
 def formato_voluntario(datos):
     conexion = Singelton().singelton()
     consulta_actividades = {
@@ -65,36 +65,56 @@ def formato_proyecto(datos):
         "buscar":"proyecto",
         "proyecto":datos[0]
     }
+    consulta_lista_fundaciones = {
+        "tabla":"proyecto_fundacion",
+        "campo":"fundacion",
+        "buscar":"proyecto",
+        "proyecto":datos[0]
+    }
     lista_actividades = conexion.consultar_campo(consulta_lista_actividades)
     lista_actividades = organizar(lista_actividades)
     lista_relacion_ods = conexion.consultar_campo(consulta_lista_ods)
     lista_relacion_ods = organizar(lista_relacion_ods)
     lista_relacion_sedes = conexion.consultar_campo(consulta_lista_sedes)
     lista_relacion_sedes = organizar(lista_relacion_sedes)
+    lista_relacion_fundaciones = conexion.consultar_campo(consulta_lista_fundaciones)
+    lista_relacion_fundaciones = organizar(lista_relacion_fundaciones)
     consulta_lista_ods={
         "tabla":"ods",
-        "campo":"nombre",
         "buscar":"id",
         "datos":"lista",
         "lista":tuple(lista_relacion_ods)
     }
     consulta_lista_sedes = {
         "tabla":"sede",
-        "campo":"nombre",
         "buscar":"id",
         "datos":"lista",
         "lista":tuple(lista_relacion_sedes)
     }
-    if(consulta_lista_sedes["lista"] == ()):
-        lista_sede = None
-    else:
-        lista_sede = conexion.consulta_con_lista(consulta_lista_sedes)
-        lista_sede = organizar(lista_sede)
-    if(consulta_lista_ods["lista"] == ()):
-        lista_ods = None
-    else:
-        lista_ods = conexion.consulta_con_lista(consulta_lista_ods)
-        lista_ods = organizar(lista_ods)
+    consulta_lista_fundaciones={
+        "tabla":"fundacion",
+        "buscar":"id",
+        "datos":"lista",
+        "lista":tuple(lista_relacion_fundaciones)
+    }
+    lista_aux_sedes = formatear(consulta_lista_sedes)
+    lista_sedes=[]
+    for sede in lista_aux_sedes:
+        sede = formato_sede(sede)
+        lista_sedes.append(sede)
+    
+    lista_aux_ods = formatear(consulta_lista_ods)
+    lista_ods = []
+    for ods in lista_aux_ods:
+        ods = formato_ods(ods)
+        lista_ods.append(ods)
+
+    lista_aux_fundaciones = formatear(consulta_lista_fundaciones)
+    lista_fundaciones = []
+    for fundacion in lista_aux_fundaciones:
+        fundacion = formato_fundacion(fundacion)
+        lista_fundaciones.append(fundacion)
+
     salida = {
         "id":datos[0],
         "nombre":datos[1],
@@ -103,7 +123,8 @@ def formato_proyecto(datos):
         "fin":datos[4],
         "actividades":lista_actividades,
         "ods":lista_ods,
-        "sedes":lista_sede
+        "sedes":lista_sedes,
+        "fundaciones":lista_fundaciones
     }
     return(salida)
 
