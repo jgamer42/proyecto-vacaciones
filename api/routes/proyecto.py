@@ -58,6 +58,7 @@ def datos_crear_proyecto():
 
 @app.route("/proyecto/crear", methods=["POST"])
 def crear_proyecto():
+    print(request.json)
     if not ("fecha_final" in request.json):
         nuevo_proyecto = {
             "nombre":request.json["nombre"],
@@ -70,6 +71,7 @@ def crear_proyecto():
         }
     else:
         nuevo_proyecto = {
+            print("hola entre por el else")
             "nombre":request.json["nombre"],
             "descripcion":request.json["descripcion"],
             "fecha_inicio":request.json["fecha_inicio"],
@@ -78,7 +80,6 @@ def crear_proyecto():
             "sedes":request.json["sedes"],
             "fundaciones":request.json["fundaciones"]
         }
-        
     objeto = Proyecto(nuevo_proyecto)
     objeto.insertar()
     salida = jsonify("datos ingresados con exito")
