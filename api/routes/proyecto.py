@@ -70,8 +70,8 @@ def crear_proyecto():
             "fundaciones":request.json["fundaciones"]
         }
     else:
+        print("hola entre por el else")
         nuevo_proyecto = {
-            print("hola entre por el else")
             "nombre":request.json["nombre"],
             "descripcion":request.json["descripcion"],
             "fecha_inicio":request.json["fecha_inicio"],
