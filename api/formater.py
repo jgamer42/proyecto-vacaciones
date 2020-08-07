@@ -71,7 +71,7 @@ def formato_proyecto(datos):
         "buscar":"proyecto",
         "proyecto":datos[0]
     }
-    lista_actividades = conexion.consultar_campo(consulta_lista_actividades)
+    lista_actividades = conexion.consultar_especifico("actividad","proyecto",datos[0])
     lista_actividades = organizar(lista_actividades)
     lista_relacion_ods = conexion.consultar_campo(consulta_lista_ods)
     lista_relacion_ods = organizar(lista_relacion_ods)
