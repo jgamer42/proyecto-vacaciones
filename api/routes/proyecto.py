@@ -23,8 +23,12 @@ def consultar_proyectos_todos():
 @app.route("/proyecto/consultar/<int:id>",methods=["GET"])
 def consultar_proyectos_especifico(id):
     conexion = Singelton().singelton()
-    dato = {"id":id}
-    consulta = conexion.consultar_especifico("proyecto","id",dato)
+    consulta={
+        "tabla":"proyecto",
+        "referencia":"id",
+        "id":id
+    }
+    consulta = conexion.consultar_especifico(consulta)
     if (consulta == []):
         raise No_hay_datos()
     salida = formato_proyecto(consulta[0])

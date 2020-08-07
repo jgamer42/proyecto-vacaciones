@@ -79,7 +79,10 @@ def consultar_voluntario_todos():
 @app.route("/voluntario/consultar/<string:cedula>",methods=["GET"])
 def consultar_voluntario_especifico(cedula):
     conexion = Singelton().singelton()
-    dato = {"cedula":cedula}
+    consulta = {
+        "tabla":"voluntario",
+        "refefencia":"cedula",
+        "cedula":cedula}
     datos = conexion.consultar_especifico("voluntario","cedula",dato)
     if (datos == []):
         raise No_hay_datos()

@@ -2,7 +2,7 @@ from bd.singelton import  Singelton
 def organizar(lista):
     salida = []
     for i in lista:
-        salida.append(i[0])
+        salida.append(i)
     return(salida)
 
 def formatear(config):

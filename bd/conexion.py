@@ -26,16 +26,16 @@ class Conexion():
         return(salida)
 
     @staticmethod
-    def consultar_especifico(tabla,referencia,dato):
+    def consultar_especifico(config_sql):
         conexion = psycopg2.connect(host=config["db"]["host"],database=config["db"]["database"],user=config["db"]["user"],password=config["db"]["password"])
         consulta = conexion.cursor()
         salida = None
         try:
             consulta.execute(sql.SQL("SELECT * FROM {tabla} WHERE {referencia} = {dato}").format(
-                tabla = sql.Identifier(tabla),
-                referencia = sql.Identifier(referencia),
-                dato = sql.Placeholder(referencia)
-                ),dato)
+                tabla = sql.Identifier(config_sql["tabla"]),
+                referencia = sql.Identifier(config_sql["referencia"]),
+                dato = sql.Placeholder(config_sql["referencia"])
+                ),config_sql)
             datos = consulta.fetchall()
             salida = datos
         finally:

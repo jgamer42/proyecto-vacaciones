@@ -47,10 +47,9 @@ def formato_programa(datos):
 
 def formato_proyecto(datos):
     conexion = Singelton().singelton()
-    consulta_lista_actividades = {
+    consulta_lista_actividades={
         "tabla":"actividad",
-        "campo":"nombre",
-        "buscar":"proyecto",
+        "referencia":"proyecto",
         "proyecto":datos[0]
     }
     consulta_lista_ods = {
@@ -71,7 +70,7 @@ def formato_proyecto(datos):
         "buscar":"proyecto",
         "proyecto":datos[0]
     }
-    lista_actividades = conexion.consultar_especifico("actividad","proyecto",datos[0])
+    lista_actividades = conexion.consultar_especifico(consulta_lista_actividades)
     lista_actividades = organizar(lista_actividades)
     lista_relacion_ods = conexion.consultar_campo(consulta_lista_ods)
     lista_relacion_ods = organizar(lista_relacion_ods)
@@ -114,6 +113,12 @@ def formato_proyecto(datos):
     for fundacion in lista_aux_fundaciones:
         fundacion = formato_fundacion(fundacion)
         lista_fundaciones.append(fundacion)
+    
+    lista_aux_actividades = lista_actividades
+    lista_actividades = []
+    for actividad in lista_aux_actividades:
+        actividad = formato_actividades(actividad)
+        lista_actividades.append(actividad)
 
     salida = {
         "id":datos[0],
