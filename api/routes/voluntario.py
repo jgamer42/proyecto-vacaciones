@@ -81,7 +81,7 @@ def consultar_voluntario_especifico(cedula):
     conexion = Singelton().singelton()
     consulta = {
         "tabla":"voluntario",
-        "refefencia":"cedula",
+        "referencia":"cedula",
         "cedula":cedula}
     datos = conexion.consultar_especifico(consulta)
     if (datos == []):
