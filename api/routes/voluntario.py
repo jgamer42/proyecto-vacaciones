@@ -83,7 +83,7 @@ def consultar_voluntario_especifico(cedula):
         "tabla":"voluntario",
         "refefencia":"cedula",
         "cedula":cedula}
-    datos = conexion.consultar_especifico("voluntario","cedula",dato)
+    datos = conexion.consultar_especifico(consulta)
     if (datos == []):
         raise No_hay_datos()
     else:
