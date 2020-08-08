@@ -116,3 +116,4 @@ class Proyecto(Modelo_base):
             }
             self.conexion.insertar(config_fundacion,datos)
         super().actualizar()
+#TODO limpiar esto con una funcion
