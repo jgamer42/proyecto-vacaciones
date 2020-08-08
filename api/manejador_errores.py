@@ -34,4 +34,3 @@ def error_foranea(error):
     response.status_code = 409
     return (response)
 
-

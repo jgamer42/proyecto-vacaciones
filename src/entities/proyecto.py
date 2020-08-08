@@ -62,3 +62,57 @@ class Proyecto(Modelo_base):
                 "fundacion":fundacion
             }
             self.conexion.insertar(config_fundacion,datos)
+
+    def actualizar(self):
+        config_ods = {
+            "tabla":"ods_proyecto",
+            "buscar":"proyecto"
+        }
+        config_sedes = {
+            "tabla":"sede_proyecto",
+            "buscar":"proyecto"
+        }
+        config_fundaciones = {
+            "tabla":"proyecto_fundacion",
+            "buscar":"proyecto"
+        }
+        datos={
+            "proyecto":self.datos["id"]
+        }
+        self.conexion.eliminar(config_ods,datos)
+        self.conexion.eliminar(config_sedes,datos)
+        self.conexion.eliminar(config_fundaciones,datos)
+
+        config_ods = {
+            "tabla":"ods_proyecto",
+            "campos":["proyecto","ods"]
+        }
+        for ods in self.datos["lista_ods"]:
+            datos = {
+                "proyecto":self.datos["id"],
+                "ods":ods
+            }
+            self.conexion.insertar(config_ods,datos)
+
+        config_sedes = {
+            "tabla":"sede_proyecto",
+            "campos":["proyecto","sede"]
+        }
+        for sede in self.datos["sedes"]:
+            datos = {
+                "proyecto":self.datos["id"],
+                "sede":sede
+            }
+            self.conexion.insertar(config_sedes,datos)
+
+        config_fundacion = {
+            "tabla":"proyecto_fundacion",
+            "campos":["proyecto","fundacion"]
+        }
+        for fundacion in self.datos["fundaciones"]:
+            datos = {
+                "proyecto":self.datos["id"],
+                "fundacion":fundacion
+            }
+            self.conexion.insertar(config_fundacion,datos)
+        super().actualizar()

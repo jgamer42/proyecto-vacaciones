@@ -108,7 +108,10 @@ def actualizar_proyecto():
                 "nombre":request.json["nombre"],
                 "descripcion":request.json["descripcion"],
                 "fecha_inicio":request.json["fecha_inicio"],
-                "fecha_final":request.json["fecha_inicio"]
+                "fecha_final":request.json["fecha_inicio"],
+                "sedes":request.json["sedes"],
+                "fundaciones":request.json["fundaciones"],
+                "lista_ods":request.json["lista_ods"]
             }
         else:
             nuevo_proyecto = {
@@ -116,10 +119,13 @@ def actualizar_proyecto():
                 "nombre":request.json["nombre"],
                 "descripcion":request.json["descripcion"],
                 "fecha_inicio":request.json["fecha_inicio"],
-                "fecha_final":request.json["fecha_final"]
+                "fecha_final":request.json["fecha_final"],
+                "sedes":request.json["sedes"],
+                "fundaciones":request.json["fundaciones"],
+                "ods":request.json["lista_ods"]
             }
         objeto = Proyecto(nuevo_proyecto)
-        objeto.insertar()
+        objeto.actualizar()
     else:
         raise No_sabe_que_buscar()
     salida = jsonify("datos ingresados con exito")
