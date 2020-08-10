@@ -12,3 +12,8 @@ def formatear(config):
         conexion = Singelton().singelton()
         salida = conexion.consulta_con_lista(config)
     return salida
+
+def agregar(lista):
+    salida = []
+    for elemento in lista:
+        pass
